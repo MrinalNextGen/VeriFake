@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Deepfake Detector{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        /* 3D Parallax Background */
+        .parallax-container {
+            position: relative;
+            height: 100vh;
+            perspective: 1px;
+        }
+
+        .parallax-background, .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .parallax-background {
+            transform: translateZ(-1px) scale(2);
+            background-image: url('https://akm-img-a-in.tosshub.com/businesstoday/images/story/202311/untitled_design_-_2023-11-09t103355-sixteen_nine.jpg?size=948:533');
+        }
+
+        .parallax-layer {
+            background-image: url('https://cdn.pixabay.com/photo/2016/12/27/17/37/dots-1934691_960_720.png');
+            opacity: 0.3;
+            transform: translateZ(-0.5px) scale(1.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background-color: #f76c6c;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-hover:hover {
+            background-color: #e63946;
+            box-shadow: 0px 0px 10px rgba(230, 57, 70, 0.7), 0 0 20px rgba(230, 57, 70, 0.7);
+            transform: translateY(-4px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer; 
+        }
+        
+        /* Additional Styles for How It Works Section */
+        .shadow-clean {
+          box-shadow :0px 4px 15px rgba(0,0,0,0.2);
+      }
+      
+      .hover-3d:hover {
+          transform :translateY(-5px) scale(1.05);
+          transition :transform .3s ease-in-out; 
+      }
+
+      /* Animation Styles */
+      @keyframes fadeInUp {
+          from {
+              opacity: 0; 
+              transform :translateY(20px); 
+          }
+          to {
+              opacity :1; 
+              transform :translateY(0); 
+          }
+      }
+      
+      .fade-in-up { 
+          animation :fadeInUp .5s ease forwards; 
+      }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="w-full px-8 text-gray-200 bg-black">
+        <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
+             <a href="#_" class="text-xl font-black leading-none">VeriFake<span class="text-red-600">.</span></a>
+             <nav class="flex flex-wrap items-center mt-5 text-base md:mt-0">
+                 <a href="#_" class="mr-5 hover:text-red-600">Home</a>
+                 <a href="#_" class="mr-5 hover:text-red-600">Features</a>
+             </nav>
+             <div class="flex space-x-4 mt-5 md:mt-0 navbar-buttons">
+                 <a href="#" class="btn btn-hover">Sign in</a>
+                 <a href="#" class="btn btn-hover">Sign up</a>
+             </div>
+         </div>
+     </header>
+
+     <!-- Hero Section with 3D Parallax Background -->
+     <div class="parallax-container">
+         <div class="parallax-background"></div>
+         <div class="parallax-layer"></div>
+         <div class="hero-content">
+             <h1>Revolutionize Deepfake Detection</h1>
+             <p>Protect yourself from the latest AI-generated content.</p>
+             <a href="javascript:void(0)" onclick="showUploadModal()" class="btn btn-hover">Detect Now</a>
+         </div>
+     </div>
+
+     <!-- How It Works Section -->
+     <section class="bg-gray-900">
+         <div class="container max-w-6xl mx-auto text-center">
+             <h2 class="text-3xl font-bold text-gray-100">How It Works</h2>
+             <p class="mt-4 text-gray-400">Follow these simple steps to detect deepfakes:</p>
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                 <div class="shadow-clean p-6 bg-gray-800 rounded-lg fade-in-up hover-3d">
+                     <h3 class="font-semibold text-xl mb-2 text-white">Upload Your Content</h3>
+                     <p class="text-gray-400">Start by uploading the video you want to analyze.</p>
+                 </div>
+                 <div class="shadow-clean p-6 bg-gray-800 rounded-lg fade-in-up hover-3d">
+                     <h3 class="font-semibold text-xl mb-2 text-white">Choose a Model</h3>
+                     <p class="text-gray-400">Select the AI model that best suits your needs.</p>
+                 </div>
+                 <div class="shadow-clean p-6 bg-gray-800 rounded-lg fade-in-up hover-3d">
+                     <h3 class="font-semibold text-xl mb-2 text-white">Detect Deepfake</h3>
+                     <p class="text-gray-400">Analyze and generate results on the authenticity of the video.</p>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+     <!-- Modal Section -->
+     <div id="uploadModal" class="modal">
+         <div class="modal-content">
+             <button class="close-modal" onclick="hideUploadModal()">&times;</button>
+             <h1 class="modal-header">Upload a Video for Deepfake Detection</h1>
+             <form method="post" enctype="multipart/form-data" class="mb-4">
+                 {% csrf_token %}
+                 <div class="mb-4">
+                     {{ form.video.label_tag }}
+                     {{ form.video }}
+                 </div>
+                 <div class="mb-4">
+                     <video id="videoPreview" class="hidden w-full" controls></video>
+                 </div>
+                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
+             </form>
+         </div>
+     </div>
+
+     <!-- Footer -->
+     <footer class="text-center py-4 bg-black text-gray-200">
+         <p>© 2024 VeriFake. All Rights Reserved.</p>
+     </footer>
+
+     <script>
+         // Show modal
+         function showUploadModal() {
+             document.getElementById('uploadModal').style.display = 'flex';
+         }
+
+         // Hide modal
+         function hideUploadModal() {
+             document.getElementById('uploadModal').style.display = 'none';
+         }
+
+         // Video preview logic
+         document.getElementById('{{ form.video.id_for_label }}').addEventListener('change', function(event) {
+             var file = event.target.files[0];
+             var videoPreview = document.getElementById('videoPreview');
+
+             if (file) {
+                 var url = URL.createObjectURL(file);
+                 videoPreview.src = url; 
+                 videoPreview.classList.remove('hidden');
+             } else {
+                 videoPreview.src = '';
+                 videoPreview.classList.add('hidden');
+             }
+         });
+     </script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+/media
+/test_dataset
+# Ignore system files
+.DS_Store
+
+# Python-related files
+*.pyc
+__pycache__/
+
+# Database files
+*.sqlite3

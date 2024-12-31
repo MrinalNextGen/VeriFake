@@ -1,0 +1,6 @@
+pytest-shutil
+opencv-python
+numpy
+tensorflow
+Django
+opencv-python-headless
