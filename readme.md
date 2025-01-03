@@ -95,7 +95,3 @@ django
 ## License
 
 This project is licensed under the MIT License.
-
-## Contact
-
-For any questions or feedback, please contact  akash verma  on my insta @frozen_blink.
